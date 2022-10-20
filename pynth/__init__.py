@@ -5,3 +5,5 @@ from .const import *
 from .oscillator import *
 from .instrument import *
 from .effect import *
+from .let import *
+from .note import *
