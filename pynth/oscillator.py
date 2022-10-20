@@ -11,11 +11,15 @@ from .const import SAMPLING_RATE
 class Oscillator:
     @cached_property
     def map(self):
-        match len(signature(self.take).parameters):  # type: ignore
-            case 1: return self.__map1
-            case 2: return self.__map2
-            case 3: return self.__map3
-            case _: raise Exception("take 参数数量错误")
+        argc = len(signature(self.take).parameters)  # type: ignore
+        if argc == 1:
+            return self.__map1
+        elif argc == 2:
+            return self.__map2
+        elif argc == 3:
+            return self.__map3
+        else:
+            raise Exception("take 参数数量错误")
 
     @cached_property
     def __vectorized_take(self):
