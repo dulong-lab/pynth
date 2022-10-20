@@ -1,0 +1,3 @@
+SAMPLING_RATE = 44100
+
+__all__ = ['SAMPLING_RATE']
