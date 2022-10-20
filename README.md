@@ -3,7 +3,9 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/pynth.svg)](https://pypi.org/project/pynth)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pynth.svg)](https://pypi.org/project/pynth)
 
------
+---
+
+[Demo](demo.ipynb)
 
 **Table of Contents**
 
