@@ -35,12 +35,15 @@ class Score:
     def compile(self):
         return {
             part: AudioCompiler().compile(
-                self.instruments[part], self.tempo, self.symbols[part])
+                self.instruments[part],
+                self.tempo,
+                self.symbols[part]
+            )
             for part in self.parts
         }
 
     def build(self):
-        return self.mixer.mix(self.__pad(self.compile()))
+        return self.mixer.mix(self.__pad(self.__normalize(self.compile())))
 
     def __pad(self, tracks):
         width = max(map(lambda a: a.shape[-1], tracks.values()))
@@ -54,6 +57,14 @@ class Score:
         n = width - data.shape[0]
         pad_width = np.array([(0, 0)]*(d-1) + [(0, n)])
         return np.pad(data, pad_width)
+
+    def __normalize(self, tracks):
+        # normalize 防止有时因浮点数经度问题导致出现不在 [-1, 1] 内的值
+        # 同时让 mixer 获取到的数据更统一
+        return {
+            part: normalize(data)
+            for part, data in tracks.items()
+        }
 
     def __getitem__(self, name):
         return self.symbols[name]
