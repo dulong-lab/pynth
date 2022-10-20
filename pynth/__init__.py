@@ -3,3 +3,4 @@
 # SPDX-License-Identifier: MIT
 from .const import *
 from .oscillator import *
+from .instrument import *
