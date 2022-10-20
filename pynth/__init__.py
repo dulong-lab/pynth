@@ -7,3 +7,5 @@ from .instrument import *
 from .effect import *
 from .let import *
 from .note import *
+from .tempo import *
+from .audio_compiler import *
