@@ -30,9 +30,9 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Documentation = "https://github.com/unknown/pynth#readme"
-Issues = "https://github.com/unknown/pynth/issues"
-Source = "https://github.com/unknown/pynth"
+Documentation = "https://github.com/dulong-lab/pynth#readme"
+Issues = "https://github.com/dulong-lab/pynth/issues"
+Source = "https://github.com/dulong-lab/pynth"
 
 [tool.hatch.version]
 path = "pynth/__about__.py"
