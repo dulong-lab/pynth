@@ -9,3 +9,5 @@ from .let import *
 from .note import *
 from .tempo import *
 from .audio_compiler import *
+from .tools import *
+from .score import *

@@ -26,7 +26,7 @@ class AudioCompiler:
         data = [self.__compile_symbol(i, it) for i, it in enumerate(symbols)]
 
         if self.__nchannel == None:
-            self.__nchannel = len(self.__instrument.wav.map([0], [0], [0]))
+            self.__nchannel = self.__guess_nchannel()
 
         if self.__nchannel != 1:
             for i in self.__rest_idx:
@@ -47,6 +47,13 @@ class AudioCompiler:
             autoplay=autoplay,
             normalize=normalize
         )
+
+    def __guess_nchannel(self):
+        if self.__instrument.wav == None:
+            # Score 创建的 Instrument 默认 wav 为 None
+            return 1
+        else:
+            return len(self.__instrument.wav.map([0], [0], [0]))
 
     def __compile_symbol(self, i, symbol):
         if isclass(symbol):
