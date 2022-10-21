@@ -36,7 +36,7 @@ class Oscillator:
 
     def plot(self, n=1, dur=1.0):
         s = int(dur * SAMPLING_RATE)
-        p = np.tile(np.linspace(0, 1, s // n), n + 1)[:s]
+        p = np.tile(np.linspace(0, 1, s // n, endpoint=False), n + 1)[:s]
         t = np.linspace(0, dur, s, endpoint=False)
         d = np.full(s, t[-1])
         data = np.array(self.map(p, t, d))
