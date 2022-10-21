@@ -23,8 +23,8 @@ class Score:
         self.instruments = {part: Instrument(None, sr=sr) for part in parts}
         self.symbols = {part: [] for part in parts}
 
-    def audio(self, autoplay=False, normalize=False):
-        data = self.build()
+    def audio(self, parts=None, autoplay=False, normalize=False):
+        data = self.build(parts)
         return ipd.Audio(
             data if len(data) != 0 else [0],  # type: ignore
             rate=self.sr,
@@ -32,18 +32,23 @@ class Score:
             normalize=normalize
         )
 
-    def compile(self):
+    def build(self, parts=None):
+        return self.mixer.mix(self.__pad(self.__normalize(self.compile(parts))))
+
+    def compile(self, parts=None):
+        if parts == None:
+            parts = self.parts
+        elif (not set(parts).issubset(self.parts)):
+            raise Exception("指定了无效的声部")
+
         return {
             part: AudioCompiler().compile(
                 self.instruments[part],
                 self.tempo,
-                self.symbols[part]
+                self.symbols[part] if part in parts else []
             )
             for part in self.parts
         }
-
-    def build(self):
-        return self.mixer.mix(self.__pad(self.__normalize(self.compile())))
 
     def __pad(self, tracks):
         width = max(map(lambda a: a.shape[-1], tracks.values()))
