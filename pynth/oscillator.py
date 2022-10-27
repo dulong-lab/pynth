@@ -36,16 +36,17 @@ class Oscillator:
 
     def plot(self, n=1, dur=1.0):
         s = int(dur * SAMPLING_RATE)
-        p = np.tile(np.linspace(0, 1, s // n, endpoint=False), n + 1)[:s]
+        x = np.linspace(0, n, s, endpoint=False)
+        p = np.modf(x)[0]
         t = np.linspace(0, dur, s, endpoint=False)
         d = np.full(s, t[-1])
         data = np.array(self.map(p, t, d))
 
         if len(data.shape) == 1:
-            plt.plot(data)
+            plt.plot(x, data)
         else:
             for row in data:
-                plt.plot(row)
+                plt.plot(x, row)
 
     def __combine(self, op, other):
         if isinstance(other, Oscillator):
